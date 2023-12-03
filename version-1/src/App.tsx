@@ -2,6 +2,12 @@ import { Route, Routes } from '@solidjs/router';
 import { useNavigate } from '@solidjs/router';
 
 import Login from './views/Login';
+import Home from './views/Home';
+import Clientes from './views/Clientes';
+import Productos from './views/Productos';
+import Ventas from './views/Ventas';
+import Entregas from './views/Entregas';
+import Compras from './views/Compras';
 
 export default function App() {
     const navigate = useNavigate();
@@ -12,10 +18,14 @@ export default function App() {
     // }
 
     return (
-        <main>
-            <Routes>
-                <Route path="/login" element={<Login />} />
-            </Routes>
-        </main>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/clientes" element={<Clientes />} />
+            <Route path="/productos" element={<Productos />} />
+            <Route path="/compras" element={<Compras />} />
+            <Route path="/ventas" element={<Ventas />} />
+            <Route path="/entregas" element={<Entregas />} />
+        </Routes>
     )
 }
