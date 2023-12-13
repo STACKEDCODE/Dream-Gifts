@@ -1,46 +1,46 @@
 function SkeletonTable() {
     return (
         <div role="status" class="relative overflow-x-auto animate-pulse">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <table class="w-full text-sm text-left text-gray-500 :text-gray-400">
                 <thead>
-                    <tr class="h-16 w-full text-sm leading-none text-gray-800 bg-gray-100 border-b border-gray-800 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
+                    <tr class="h-16 w-full text-sm leading-none text-gray-800 bg-gray-100 border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
                         <th class="font-normal text-left pl-4"> </th>
                         <th class="font-normal text-left pl-4"> </th>
                         <th class="font-normal text-left pl-4"> </th>
                     </tr>
                 </thead>
                 <tbody class="w-full">
-                    <tr class="h-14 text-sm leading-none text-gray-800 bg-white border-b border-gray-800 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
+                    <tr class="h-14 text-sm leading-none text-gray-800 bg-white border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
                         <td class="pl-4"> </td>
                         <td class="pl-4"> </td>
                         <td class="pl-4"> </td>
                     </tr>
-                    <tr class="h-14 text-sm leading-none text-gray-800 bg-white border-b border-gray-800 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
+                    <tr class="h-14 text-sm leading-none text-gray-800 bg-white border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
                         <td class="pl-4"> </td>
                         <td class="pl-4"> </td>
                         <td class="pl-4"> </td>
                     </tr>
-                    <tr class="h-14 text-sm leading-none text-gray-800 bg-white border-b border-gray-800 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
+                    <tr class="h-14 text-sm leading-none text-gray-800 bg-white border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
                         <td class="pl-4"> </td>
                         <td class="pl-4"> </td>
                         <td class="pl-4"> </td>
                     </tr>
-                    <tr class="h-14 text-sm leading-none text-gray-800 bg-white border-b border-gray-800 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
+                    <tr class="h-14 text-sm leading-none text-gray-800 bg-white border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
                         <td class="pl-4"> </td>
                         <td class="pl-4"> </td>
                         <td class="pl-4"> </td>
                     </tr>
-                    <tr class="h-14 text-sm leading-none text-gray-800 bg-white border-b border-gray-800 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
+                    <tr class="h-14 text-sm leading-none text-gray-800 bg-white border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
                         <td class="pl-4"> </td>
                         <td class="pl-4"> </td>
                         <td class="pl-4"> </td>
                     </tr>
-                    <tr class="h-14 text-sm leading-none text-gray-800 bg-white border-b border-gray-800 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
+                    <tr class="h-14 text-sm leading-none text-gray-800 bg-white border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
                         <td class="pl-4"> </td>
                         <td class="pl-4"> </td>
                         <td class="pl-4"> </td>
                     </tr>
-                    <tr class="h-14 text-sm leading-none text-gray-800 bg-white border-b border-gray-800 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
+                    <tr class="h-14 text-sm leading-none text-gray-800 bg-white border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
                         <td class="pl-4"> </td>
                         <td class="pl-4"> </td>
                         <td class="pl-4"> </td>
@@ -59,9 +59,9 @@ export default function Table({ data }) {
         try {
             return (
                 <div class="relative overflow-x-auto max-h-[60vh]">
-                    <table class="w-full  text-sm text-left text-gray-500 dark:text-gray-400">
+                    <table class="w-full  text-sm text-left text-gray-500 :text-gray-400">
                         <thead>
-                            <tr class="h-16 w-full text-sm leading-none text-gray-800 bg-gray-100 border-b border-gray-800 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
+                            <tr class="h-16 w-full text-sm leading-none text-gray-800 bg-gray-100 border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
                                 {
                                     data[0] && Object.keys(data[0]).map((key) => {
                                         return (
@@ -77,7 +77,7 @@ export default function Table({ data }) {
                                 data.map((item) => {
                                     return (
                                         (item.diasFaltantes > 10 || item.plazo == "+10 Días") ?
-                                            <tr class="h-14 text-sm leading-none text-gray-900 bg-sky-400 border-b border-gray-800 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
+                                            <tr class="h-14 text-sm leading-none text-gray-900 bg-sky-400 border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
                                                 {
                                                     Object.keys(item).map((key) => {
                                                         return (
@@ -94,7 +94,7 @@ export default function Table({ data }) {
                                             </tr>
                                             :
                                             (item.diasFaltantes < 10 && item.diasFaltantes > 0 || item.plazo == "-10 Días") ?
-                                                <tr class="h-14 text-sm leading-none text-gray-900 bg-green-400 border-b border-gray-800 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
+                                                <tr class="h-14 text-sm leading-none text-gray-900 bg-green-400 border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
                                                     {
                                                         Object.keys(item).map((key) => {
                                                             return (
@@ -111,7 +111,7 @@ export default function Table({ data }) {
                                                 </tr>
                                                 :
                                                 (item.diasFaltantes == 0 || item.plazo == "Hoy") ?
-                                                    <tr class="h-14 text-sm leading-none text-gray-900 bg-orange-400 border-b border-gray-800 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
+                                                    <tr class="h-14 text-sm leading-none text-gray-900 bg-orange-400 border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
                                                         {
                                                             Object.keys(item).map((key) => {
                                                                 return (
@@ -128,7 +128,7 @@ export default function Table({ data }) {
                                                     </tr>
                                                     :
                                                     (item.diasFaltantes < 0 || item.plazo == "Atrasados") ?
-                                                        <tr class="h-14 text-sm leading-none text-gray-900 bg-red-400 border-b border-gray-800 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
+                                                        <tr class="h-14 text-sm leading-none text-gray-900 bg-red-400 border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
                                                             {
                                                                 Object.keys(item).map((key) => {
                                                                     return (
@@ -144,7 +144,7 @@ export default function Table({ data }) {
                                                             }
                                                         </tr>
                                                         :
-                                                        <tr class="h-14 text-md font-bold leading-none text-gray-800 bg-gray-200 border-b border-gray-800 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
+                                                        <tr class="h-14 text-md font-bold leading-none text-gray-800 bg-gray-200 border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
                                                             {
                                                                 Object.keys(item).map((key) => {
                                                                     return (

@@ -17,9 +17,3 @@ body {
     background-color: rgb(246, 246, 246);
     height: max-content;
 }
-
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: rgb(24, 33, 46);
-    }
-}

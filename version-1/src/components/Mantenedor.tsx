@@ -1,39 +1,22 @@
-import { Navbar, Content, Footer } from "../components/Layout"
-import Table from "../components/Tabla"
-import styles from "../styles"
-export default function Entregas() {
-    return (
-        <main>
-            <Navbar />
-            <Content>
-                <div class="grid grid-cols-3">
-                    <button type="button" class={styles.buttonDefault}>Agregar entrega</button>
-                    <button type="button" class={styles.buttonOutlineDefault}>Buscar entrega</button>
-                    <button type="button" class={styles.buttonDefault}>Exportar a planilla</button>
-                </div>
-                <Table data={{}} />
-            </Content>
-            <Footer />
-        </main>
-    )
-}
-
-function ModalAñadir({ name }) {
+import { For } from "solid-js"
+export default function Mantenedor({ name, title, model }) {
     const closeModal = () => {
         const modal = document.getElementById(name)
         modal.classList.add("hidden")
     }
+
     const handleSubmit = (event: Event): void => {
         event.preventDefault();
         console.log(event)
     }
+
     return (
         <div id={name} class="hidden fixed top-0 bg-black/50 overflow-hidden grid justify-items-center place-content-center z-50 w-full md:inset-0 h-[calc(100%)] max-h-full">
             <div class="relative p-4 w-full max-w-2xl max-h-full">
                 <form onSubmit={handleSubmit} class="relative bg-white rounded-lg shadow">
                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                         <h3 class="text-xl font-semibold text-gray-900">
-                            Crear Entrega
+                            {title}
                         </h3>
                         <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" onClick={closeModal}>
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -43,10 +26,14 @@ function ModalAñadir({ name }) {
                         </button>
                     </div>
                     <div class="grid md:grid-cols-2 md:gap-6 p-4">
-                        <div class="flex flex-col mb-4">
-                            <label for="" class="block mb-2 text-sm font-medium text-gray-900"></label>
-                            <input type="text" name="" id="" placeholder="" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
-                        </div>
+                        <For each={Object.keys(model)}>
+                            {(key) => (
+                                <div class="flex flex-col mb-4">
+                                    <label class="block mb-2 text-sm font-medium text-gray-900" for={key}>{key}</label>
+                                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" type="text" name={key} id={key} placeholder={key} required />
+                                </div>
+                            )}
+                        </For>
                     </div>
                     <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
                         <input type="submit" class="text-white bg-green-400 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" value="Guardar" />

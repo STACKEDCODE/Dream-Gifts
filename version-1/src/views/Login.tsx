@@ -36,14 +36,14 @@ export default function Login() {
             <Content>
                 <div class="grid justify-items-center place-content-center">
                     <div class="max-w-md p-6 bg-white">
-                        <h2 class="text-2xl font-semibold mb-4 dark:bg-white-500">Iniciar sesión</h2>
+                        <h2 class="text-2xl font-semibold mb-4 :bg-white-500">Iniciar sesión</h2>
                         <form onSubmit={handleSubmit} id="login-form">
                             <div class="mb-4">
                                 <label html-for="username">Nombre de usuario o Email</label>
                                 <input
                                     type="text"
                                     id="username"
-                                    class="w-full focus:ring-green-500 dark:text-white dark:bg-gray-700 px-4 py-2 border border-gray-300 dark:border-transparent rounded-md focus:outline-none focus:ring focus:border-green-300 text-black"
+                                    class="w-full focus:ring-green-500 :text-white :bg-gray-700 px-4 py-2 border border-gray-300 :border-transparent rounded-md focus:outline-none focus:ring focus:border-green-300 text-black"
                                     required
                                     autocomplete='off'
                                     value={credentials.username}
@@ -55,7 +55,7 @@ export default function Login() {
                                 <input
                                     type="password"
                                     id="password"
-                                    class="w-full focus:ring-green-500 dark:text-white dark:bg-gray-700 px-4 py-2 border border-gray-300 dark:border-transparent rounded-md focus:outline-none focus:ring focus:border-green-300 text-black"
+                                    class="w-full focus:ring-green-500 :text-white :bg-gray-700 px-4 py-2 border border-gray-300 :border-transparent rounded-md focus:outline-none focus:ring focus:border-green-300 text-black"
                                     required
                                     autocomplete='off'
                                     value={credentials.password}
@@ -70,7 +70,7 @@ export default function Login() {
                             <div class="mb-4">
                                 <input
                                     type="submit"
-                                    class="w-full focus:ring-green-500 bg-green-500 text-white py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:bg-green-600"
+                                    class="w-full focus:ring-green-500 bg-green-400 text-white py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:bg-green-600"
                                     value="Iniciar sesión"
                                 />
                             </div>

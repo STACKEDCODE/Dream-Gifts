@@ -12,8 +12,8 @@ export default function KPI() {
 
 function KPICard({ title, value }) {
     return (
-        <A href="/entregas" class="block text-center p-6 border border-gray-200 bg-white hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-            <h1 class="text-xl font-bold dark:text-white text-gray-800 pb-4">{title}: {value}%</h1>
+        <A href="/entregas" class="block text-center p-6 border border-gray-200 bg-white hover:bg-gray-100 :bg-gray-800 :border-gray-700 :hover:bg-gray-700">
+            <h1 class="text-xl font-bold :text-white text-gray-800 pb-4">{title}: {value}%</h1>
             <div class="w-full bg-gray-200 h-4">
                 <div class='bg-[#7ED955] h-4' style={{ width: `${value}%` }}></div>
             </div>

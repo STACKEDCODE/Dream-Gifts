@@ -8,6 +8,7 @@ import Productos from './views/Productos';
 import Ventas from './views/Ventas';
 import Entregas from './views/Entregas';
 import Compras from './views/Compras';
+import Usuarios from './views/Usuarios';
 
 export default function App() {
     const navigate = useNavigate();
@@ -26,6 +27,7 @@ export default function App() {
             <Route path="/compras" element={<Compras />} />
             <Route path="/ventas" element={<Ventas />} />
             <Route path="/entregas" element={<Entregas />} />
+            <Route path="/usuarios" element={<Usuarios />} />
         </Routes>
     )
 }
