@@ -33,13 +33,15 @@ function ModalAñadir({ name }) {
     const handleSubmit = (event: Event): void => {
         event.preventDefault();
         let token = sessionStorage.getItem("token")
+        const { username, password, email, nombres, apellidos } = event.target as HTMLFormElement
         let user: User = {
-            username: event.target[0].value,
-            password: event.target[1].value,
-            email: event.target[2].value,
-            nombres: event.target[3].value,
-            apellidos: event.target[4].value,
+            username: username.value,
+            password: password.value,
+            email: email.value,
+            nombres: nombres.value,
+            apellidos: apellidos.value
         }
+        
         const response = createUser(user, token).catch((error) => {
             console.log(error)
         })

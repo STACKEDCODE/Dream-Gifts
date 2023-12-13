@@ -1,12 +1,25 @@
 import { Navbar, Content, Footer } from "../components/Layout"
+import { createClients, getClients } from "../lib/clients";
+import { createEffect, createSignal } from "solid-js";
+import { Show } from "solid-js";
 import Table from "../components/Tabla"
 import styles from "../styles"
+import { AxiosResponse } from "axios";
 export default function Clientes() {
     let name = "crear-cliente";
     const openModal = () => {
         const modal = document.getElementById(name)
         modal.classList.remove("hidden")
     }
+
+    const [clients, setClients] = createSignal([])
+    const [loading, setLoading] = createSignal(true)
+    const token = sessionStorage.getItem("token")
+    createEffect(async () => {
+        const response = await getClients(token).then((response: AxiosResponse) => { return response.data }).catch((error) => { console.log(error) })
+        setClients(response)
+        setLoading(false)
+    })
     return (
         <main>
             <Navbar />
@@ -17,7 +30,12 @@ export default function Clientes() {
                     <button type="button" class={styles.buttonOutlineDefault}>Buscar cliente</button>
                     <button type="button" class={styles.buttonDefault}>Exportar a planilla</button>
                 </div>
-                <Table data={{}} />
+                <Show when={loading()}>
+                    <Table data={{}} />
+                </Show>
+                <Show when={!loading()}>
+                    <Table data={clients()} />
+                </Show>
             </Content>
             <Footer />
         </main>
@@ -29,9 +47,19 @@ function ModalAñadir({ name }) {
         const modal = document.getElementById(name)
         modal.classList.add("hidden")
     }
-    const handleSubmit = (event: Event): void => {
+    const token = sessionStorage.getItem("token")
+    const handleSubmit = async (event: Event): Promise<void> => {
         event.preventDefault();
-        console.log(event)
+        const { rut, nombres, apellidos } = event.target as HTMLFormElement
+        let client: Client = {
+            rut: rut.value,
+            nombres: nombres.value,
+            apellidos: apellidos.value
+        }
+        const response = createClients(client, token).catch((error) => {
+            console.log(error)
+        })
+        console.log(await response)
     }
     return (
         <div id={name} class="hidden fixed top-0 bg-black/50 overflow-hidden grid justify-items-center place-content-center z-50 w-full md:inset-0 h-[calc(100%)] max-h-full">

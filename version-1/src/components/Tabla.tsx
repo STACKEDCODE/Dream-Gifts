@@ -1,3 +1,5 @@
+import { For, Show } from "solid-js"
+
 function SkeletonTable() {
     return (
         <div role="status" class="relative overflow-x-auto animate-pulse">
@@ -52,123 +54,31 @@ function SkeletonTable() {
 }
 
 export default function Table({ data }) {
-    if (data == null) return (
-        <SkeletonTable />
+    let keys = null;
+    if (data[0] != undefined) keys = Object.keys(data[0]);
+    console.log(keys)
+    return (
+        <Show when={keys} fallback={<SkeletonTable />}>
+            <div class="relative overflow-x-auto max-h-[60vh]">
+                <table class="w-full text-sm text-left text-gray-500">
+                    <thead>
+                        <tr class="h-16 w-full text-sm leading-none text-gray-800 bg-gray-100 border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
+                            <For each={keys}>
+                                {item => <th class="text-left px-4 uppercase">{item}</th>}
+                            </For>
+                        </tr>
+                    </thead>
+                    <tbody class="w-full">
+                        <For each={data}>
+                            {item => <tr class="h-14 text-sm leading-none text-gray-800 bg-white border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
+                                <For each={Object.keys(item)}>
+                                    {key => <td class="pl-4">{item[key]}</td>}
+                                </For>
+                            </tr>}
+                        </For>
+                    </tbody>
+                </table>
+            </div>
+        </Show>
     )
-    else {
-        try {
-            return (
-                <div class="relative overflow-x-auto max-h-[60vh]">
-                    <table class="w-full  text-sm text-left text-gray-500 :text-gray-400">
-                        <thead>
-                            <tr class="h-16 w-full text-sm leading-none text-gray-800 bg-gray-100 border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
-                                {
-                                    data[0] && Object.keys(data[0]).map((key) => {
-                                        return (
-                                            <th class="text-left px-4 uppercase">{key}</th>
-                                        )
-                                    }
-                                    )
-                                }
-                            </tr>
-                        </thead>
-                        <tbody class="w-full">
-                            {
-                                data.map((item) => {
-                                    return (
-                                        (item.diasFaltantes > 10 || item.plazo == "+10 Días") ?
-                                            <tr class="h-14 text-sm leading-none text-gray-900 bg-sky-400 border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
-                                                {
-                                                    Object.keys(item).map((key) => {
-                                                        return (
-                                                            item[key].length == 24 ?
-                                                                <td class="pl-4">{new Date(item[key]).toISOString().substring(0, 10)}</td>
-                                                                :
-                                                                item[key] == item.diasFaltantes ?
-                                                                    <td class="pl-4">{item[key] + ' dias restantes'}</td>
-                                                                    :
-                                                                    <td class="pl-4">{item[key]}</td>
-                                                        )
-                                                    })
-                                                }
-                                            </tr>
-                                            :
-                                            (item.diasFaltantes < 10 && item.diasFaltantes > 0 || item.plazo == "-10 Días") ?
-                                                <tr class="h-14 text-sm leading-none text-gray-900 bg-green-400 border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
-                                                    {
-                                                        Object.keys(item).map((key) => {
-                                                            return (
-                                                                item[key].length == 24 ?
-                                                                    <td class="pl-4">{new Date(item[key]).toISOString().substring(0, 10)}</td>
-                                                                    :
-                                                                    item[key] == item.diasFaltantes ?
-                                                                        <td class="pl-4">{item[key] + ' dias restantes'}</td>
-                                                                        :
-                                                                        <td class="pl-4">{item[key]}</td>
-                                                            )
-                                                        })
-                                                    }
-                                                </tr>
-                                                :
-                                                (item.diasFaltantes == 0 || item.plazo == "Hoy") ?
-                                                    <tr class="h-14 text-sm leading-none text-gray-900 bg-orange-400 border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
-                                                        {
-                                                            Object.keys(item).map((key) => {
-                                                                return (
-                                                                    item[key].length == 24 ?
-                                                                        <td class="pl-4">{new Date(item[key]).toISOString().substring(0, 10)}</td>
-                                                                        :
-                                                                        item[key] == item.diasFaltantes ?
-                                                                            <td class="pl-4">{'Se entrega hoy'}</td>
-                                                                            :
-                                                                            <td class="pl-4">{item[key]}</td>
-                                                                )
-                                                            })
-                                                        }
-                                                    </tr>
-                                                    :
-                                                    (item.diasFaltantes < 0 || item.plazo == "Atrasados") ?
-                                                        <tr class="h-14 text-sm leading-none text-gray-900 bg-red-400 border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
-                                                            {
-                                                                Object.keys(item).map((key) => {
-                                                                    return (
-                                                                        item[key].length == 24 ?
-                                                                            <td class="pl-4">{new Date(item[key]).toISOString().substring(0, 10)}</td>
-                                                                            :
-                                                                            item[key] == item.diasFaltantes ?
-                                                                                <td class="pl-4">{Math.abs(item[key]) + ' días atrasados'}</td>
-                                                                                :
-                                                                                <td class="pl-4">{item[key]}</td>
-                                                                    )
-                                                                })
-                                                            }
-                                                        </tr>
-                                                        :
-                                                        <tr class="h-14 text-md font-bold leading-none text-gray-800 bg-gray-200 border-b border-gray-800 :bg-gray-800 :text-gray-400 :border-gray-700">
-                                                            {
-                                                                Object.keys(item).map((key) => {
-                                                                    return (
-                                                                        item[key].length == 24 ?
-                                                                            <td class="pl-4">{new Date(item[key]).toISOString().substring(0, 10)}</td>
-                                                                            :
-                                                                            item[key] == item.diasFaltantes ?
-                                                                                <td class="pl-4">{item[key]}</td>
-                                                                                :
-                                                                                <td class="pl-4">{item[key]}</td>
-                                                                    )
-                                                                })
-                                                            }
-                                                        </tr>)
-                                }
-                                )
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            )
-        }
-        catch {
-            return <SkeletonTable />
-        }
-    }
 }

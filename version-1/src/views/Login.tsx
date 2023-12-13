@@ -34,7 +34,7 @@ export default function Login() {
         <main>
             <Navbar />
             <Content>
-                <div class="grid justify-items-center place-content-center">
+                <div class="grid justify-items-center place-content-center mt-[calc(5%)]">
                     <div class="max-w-md p-6 bg-white">
                         <h2 class="text-2xl font-semibold mb-4 :bg-white-500">Iniciar sesión</h2>
                         <form onSubmit={handleSubmit} id="login-form">

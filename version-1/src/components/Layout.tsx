@@ -69,11 +69,11 @@ export function Content({ children }) {
             href: '/ventas',
             icon: ChatBubbleLeftRightIcon
         },
-        {
-            name: 'Entregas',
-            href: '/entregas',
-            icon: CalendarDaysIcon
-        },
+        // {
+        //     name: 'Entregas',
+        //     href: '/entregas',
+        //     icon: CalendarDaysIcon
+        // },
         {
             name: 'Usuarios',
             href: '/usuarios',
