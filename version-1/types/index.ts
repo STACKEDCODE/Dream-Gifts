@@ -20,7 +20,6 @@ interface Buy {
     folio: string;
     fecha: Date;
     idProveedor: string;
-    listaProductos: string[];
     valorNeto: number;
 }
 
@@ -36,9 +35,9 @@ interface User {
 interface Product {
     id?: string;
     nombre: string;
-    precio: number;
+    valor: number;
     stock: number;
-    idCategoria: string;
+    idCategorias: string[];
 }
 
 interface Provider {
@@ -53,6 +52,15 @@ interface Sale {
     folio: string;
     fecha: Date;
     idCliente: string;
-    listaProductos: string[];
+    listaProductos?: string[];
     valorNeto: number;
+}
+
+interface Delivery {
+    id?: string;
+    idVenta: string;
+    fecha: Date;
+    direccion: string;
+    valor: number;
+    estado: string;
 }

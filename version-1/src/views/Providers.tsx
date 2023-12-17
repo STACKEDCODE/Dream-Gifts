@@ -1,30 +1,30 @@
-import { Navbar, Content, Footer } from "../components/Layout"
-import { createProduct, getProducts, deleteProduct, exportExcel } from "../lib/products";
-import { getCategories } from "../lib/categories";
+import { createProvider, getProviders, deleteProvider, exportExcel } from "../lib/providers";
+import { Navbar, Footer, Content } from "../components/Layout";
 import { createEffect, createSignal } from "solid-js";
 import { Show, For } from "solid-js";
+
 import Table from "../components/Tabla"
 import styles from "../styles"
-export default function Productos() {
-    let name = "crear-producto";
+
+export default function Providers() {
+    let name = "crear-provider";
     const openModal = () => {
         const modal = document.getElementById(name)
         modal.classList.remove("hidden")
     }
-
-    const [products, setProducts] = createSignal([])
+    const [providers, setProviders] = createSignal([])
     const [loading, setLoading] = createSignal(true)
     const token = sessionStorage.getItem("token")
 
-    const fetchProducts = async () => {
+    const fetchProviders = async () => {
         setLoading(true)
-        const products = await getProducts(token).then((response) => { return response.data })
-        setProducts(products)
+        const providers = await getProviders(token).then((response) => { return response.data })
+        setProviders(providers)
         setLoading(false)
     }
 
     createEffect(async () => {
-        fetchProducts()
+        fetchProviders()
     })
 
     function ModalAñadir({ name }) {
@@ -32,39 +32,32 @@ export default function Productos() {
             const modal = document.getElementById(name)
             modal.classList.add("hidden")
         }
-
         const token = sessionStorage.getItem("token")
-        const [categories, setCategories] = createSignal([])
-        createEffect(async () => {
-            const response = await getCategories(token).then((response) => { return response.data })
-            setCategories(response)
-        })
-
         const handleSubmit = async (event: Event): Promise<void> => {
             event.preventDefault();
-            const { nombre, valor, stock, idCategorias } = event.target as HTMLFormElement
-            let product: Product = {
-                nombre: nombre.value,
-                valor: valor.value,
-                stock: stock.value,
-                idCategorias: [idCategorias.value]
+            const { rut, razonSocial, direccion } = event.target as HTMLFormElement
+            let provider: Provider = {
+                rut: rut.value,
+                razonSocial: razonSocial.value,
+                direccion: direccion.value
             }
-            createProduct(product, token).then(
-                () => fetchProducts()
+
+            createProvider(provider, token).then(
+                () => fetchProviders()
             ).catch((error) => {
                 console.log(error)
             })
 
             closeModal()
-        }
 
+        }
         return (
             <div id={name} class="hidden fixed top-0 bg-black/50 overflow-hidden grid justify-items-center place-content-center z-50 w-full md:inset-0 h-[calc(100%)] max-h-full">
                 <div class="relative p-4 w-full max-w-2xl max-h-full">
                     <form onSubmit={handleSubmit} class="relative bg-white rounded-lg shadow">
                         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                             <h3 class="text-xl font-semibold text-gray-900">
-                                Registrar Producto
+                                Agregar Proveedor
                             </h3>
                             <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" onClick={closeModal}>
                                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -73,49 +66,22 @@ export default function Productos() {
                                 <span class="sr-only">Close modal</span>
                             </button>
                         </div>
-
-                        {/* interface Product {
-                            id?: string;
-                            nombre: string;
-                            valor: number;
-                            stock: number;
-                            idCategorias: string;
-                        } */}
-
                         <div class="grid md:grid-cols-2 md:gap-6 p-4">
-
                             <div class="flex flex-col mb-4">
-                                <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
-                                <input type="text" name="nombre" id="nombre" placeholder="nombre" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
+                                <label for="rut" class="block mb-2 text-sm font-medium text-gray-900">Rut</label>
+                                <input type="text" name="rut" id="rut" placeholder="rut" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
                             </div>
 
                             <div class="flex flex-col mb-4">
-                                <label for="valor" class="block mb-2 text-sm font-medium text-gray-900">Precio</label>
-                                <input type="number" name="valor" id="valor" placeholder="valor" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
+                                <label for="razonSocial" class="block mb-2 text-sm font-medium text-gray-900">Razón Social</label>
+                                <input type="text" name="razonSocial" id="razonSocial" placeholder="razonSocial" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
                             </div>
 
                             <div class="flex flex-col mb-4">
-                                <label for="stock" class="block mb-2 text-sm font-medium text-gray-900">Stock</label>
-                                <input type="number" name="stock" id="stock" placeholder="stock" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
-                            </div>
-
-                            <div class="flex flex-col mb-4">
-                                <label for="idCategorias" class="block mb-2 text-sm font-medium text-gray-900">Categoría</label>
-                                <select name="idCategorias" id="idCategorias" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" multiple>
-                                    <option value="" selected disabled hidden>Seleccionar</option>
-                                    <Show when={categories().length > 0} fallback={
-                                        <option value="" disabled>No hay categorías</option>
-                                    }>
-                                        <For each={categories()}>
-                                            {(category) => (
-                                                <option value={category.id}>{category.nombre}</option>
-                                            )}
-                                        </For>
-                                    </Show>
-                                </select>
+                                <label for="direccion" class="block mb-2 text-sm font-medium text-gray-900">Dirección</label>
+                                <input type="text" name="direccion" id="direccion" placeholder="direccion" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
                             </div>
                         </div>
-
                         <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
                             <input type="submit" class="text-white bg-green-400 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" value="Guardar" />
                             <button onClick={closeModal} type="button" class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-green-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancelar</button>
@@ -129,8 +95,8 @@ export default function Productos() {
     const deleteItem = async (event: Event): Promise<void> => {
         event.preventDefault();
         const { delete: id } = event.target as HTMLFormElement
-        await deleteProduct(id.value, token).then(
-            () => fetchProducts()
+        await deleteProvider(id.value, token).then(
+            () => fetchProviders()
         ).catch((error) => {
             console.log(error)
         })
@@ -147,7 +113,7 @@ export default function Productos() {
             <Content>
                 <ModalAñadir name={name} />
                 <div class="grid grid-cols-3 gap-2">
-                    <button type="button" class={styles.buttonDefault} onClick={openModal}>Agregar producto</button>
+                    <button type="button" class={styles.buttonDefault} onClick={openModal}>Agregar proveedor</button>
                     <form onSubmit={deleteItem}>
                         <div class="relative">
                             <input type="search" id="delete" class={styles.buttonOutlineDefault} placeholder="N° Entrega" required />
@@ -168,7 +134,7 @@ export default function Productos() {
                     </div>
                 </Show>
                 <Show when={!loading()}>
-                    <Table data={products()} />
+                    <Table data={providers()} />
                 </Show>
             </Content>
             <Footer />

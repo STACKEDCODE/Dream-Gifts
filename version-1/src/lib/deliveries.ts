@@ -1,38 +1,39 @@
 import api from './api';
 
-export function createProvider(provider: Provider, token: string) {
-    const { razonSocial, rut, direccion } = provider;
-    return api.post('/proveedores', { razonSocial, rut, direccion },
+export function createDelivery(delivery: Delivery, token: string) {
+    const { idVenta, fecha, direccion, valor, estado } = delivery;
+    return api.post('/delivery', { idVenta, fecha, direccion, valor, estado },
         { headers: { Authorization: `Bearer ${token}` } });
 }
 
-export function getProviders(token: string) {
-    return api.get('/proveedores',
+export function getDeliveries(token: string) {
+    return api.get('/delivery',
         { headers: { Authorization: `Bearer ${token}` } });
 }
 
-export function getProviderById(id: string, token: string) {
-    return api.get(`/proveedores/${id}`,
-        { headers: { Authorization: `Bearer ${token}` } });
-}
-export function updateProvider(provider: Provider, token: string) {
-    const { id, razonSocial, rut, direccion } = provider;
-    return api.put(`/proveedores/${id}`, { razonSocial, rut, direccion },
+export function getDeliveryById(id: string, token: string) {
+    return api.get(`/delivery/${id}`,
         { headers: { Authorization: `Bearer ${token}` } });
 }
 
-export function deleteProvider(id: string, token: string) {
-    return api.delete(`/proveedores/${id}`,
+export function updateDelivery(delivery: Delivery, token: string) {
+    const { id, idVenta, fecha, direccion, valor, estado } = delivery;
+    return api.put(`/delivery/${id}`, { idVenta, fecha, direccion, valor, estado },
+        { headers: { Authorization: `Bearer ${token}` } });
+}
+
+export function deleteDelivery(id: string, token: string) {
+    return api.delete(`/delivery/${id}`,
         { headers: { Authorization: `Bearer ${token}` } });
 }
 
 export async function exportExcel(token: string) {
     const link = document.createElement('a');
-    return api.get('/proveedores/csv',
+    return api.get('/delivery/csv',
         { headers: { Authorization: `Bearer ${token}` } }).then((response) => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             link.href = url;
-            link.setAttribute('download', 'proveedores.csv');
+            link.setAttribute('download', 'delivery.csv');
             document.body.appendChild(link);
             link.click();
         }).catch((error) => {

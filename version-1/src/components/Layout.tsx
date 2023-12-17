@@ -1,7 +1,7 @@
 import { A, useLocation } from "@solidjs/router";
 import { For, Show } from "solid-js";
 import { createSignal, onMount } from "solid-js";
-import { CreditCardIcon, HomeIcon, UserIcon, GiftIcon, ChatBubbleLeftRightIcon, CalendarDaysIcon, UserGroupIcon } from "./Icons";
+import { CreditCardIcon, HomeIcon, UserIcon, GiftIcon, ChatBubbleLeftRightIcon, CalendarDaysIcon, UserGroupIcon, TruckIcon } from "./Icons";
 import styles from "../styles";
 import 'flowbite';
 
@@ -55,6 +55,11 @@ export function Content({ children }) {
             icon: UserIcon
         },
         {
+            name: 'Proveedores',
+            href: '/proveedores',
+            icon: TruckIcon
+        },
+        {
             name: 'Productos',
             href: '/productos',
             icon: GiftIcon
@@ -69,11 +74,11 @@ export function Content({ children }) {
             href: '/ventas',
             icon: ChatBubbleLeftRightIcon
         },
-        // {
-        //     name: 'Entregas',
-        //     href: '/entregas',
-        //     icon: CalendarDaysIcon
-        // },
+        {
+            name: 'Entregas',
+            href: '/entregas',
+            icon: CalendarDaysIcon
+        },
         {
             name: 'Usuarios',
             href: '/usuarios',
